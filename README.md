@@ -26,7 +26,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Study groups help hold one accountable, but sometimes in-person study sessions just aren't realistic. The StudyBud application allows students to join a virtual study room with other students to stay more productive and get more done. As each student joins, other students are notified so they can send each other encouragement. As a student finishes an assignment, they can add it to their total completed projects, so students can look back and see how much they've accomplished while studying with StudyBud. Upon indicating project completion, other students are notified so they can celebrate together!
 
 ### Design
 
