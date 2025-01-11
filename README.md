@@ -43,20 +43,29 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Secure login over HTTPS
+- Ability to send other users encouragement
+- Display of users currently joined
+- Ability to indicate that you've completed a project, notification sent to other joined users
+- Display of joined students' project completion stats
+- Displayed stats update in real-time
+- Completion stats are persistently stored
+- Notifications sent to other users when one user joins/leaves
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
 - **HTML** - Description here
-- **CSS** - Description here
+- **CSS** - Application styling for different screen sizes, soft colors, good whitespace
 - **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **Service** - Backend Service with endpoints for:
+                - Login
+                - Register
+                - Logout
+                - Sending encouragement
+- **DB/Login** - Store users and completed project stats in database. Register and login users with account info securely stored in database. Can't join study room unless logged in.
+- **WebSocket** - When users join, leave, send encouragement, and complete projects, notifications are broadcast to all other users
 
 ## 🚀 AWS deliverable
 
