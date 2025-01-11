@@ -1,8 +1,8 @@
-# Your startup name here
+# StudyBud
 
 [My Notes](notes.md)
 
-A brief description of the application here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+StudyBud is a web application that allows students to join a virtual study room to help each other stay accountable. They will login, and the application will show a list of students currently joined. Students can send each other encouragement that will or send a notification indicating that they have completed their assignment. Similar to a scoreboard, there is a page that displays how many projects a student has completed while logged into the study room. When a student enters, leaves, sends encouragement, or completes an assignment, a notification message is sent to other students currently in the study room.
 
 
 > [!NOTE]
