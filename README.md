@@ -60,10 +60,11 @@ I am going to use the required technologies in the following ways.
 - **CSS** - Application styling for different screen sizes, soft colors, good whitespace
 - **React** - Description here
 - **Service** - Backend Service with endpoints for:
-                - Login
-                - Register
-                - Logout
-                - Sending encouragement
+  - Login
+  - Register
+  - Logout
+  - Sending encouragement
+  - Completing Project
 - **DB/Login** - Store users and completed project stats in database. Register and login users with account info securely stored in database. Can't join study room unless logged in.
 - **WebSocket** - When users join, leave, send encouragement, and complete projects, notifications are broadcast to all other users
 
