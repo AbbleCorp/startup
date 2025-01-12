@@ -34,10 +34,10 @@ Study groups help hold one accountable, but sometimes in-person study sessions j
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-```
-![StudyBud Sequence Diagram](https://github.com/user-attachments/assets/88b8722a-1ccb-4768-a8c1-b1b102648760)
+### Sequence Diagram
+![StudyBudSequenceDiagram](https://github.com/user-attachments/assets/a621ad10-f12c-4efc-896c-ffc957f0af39)
 
-```
+
 
 ### Key features
 
