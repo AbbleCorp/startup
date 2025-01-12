@@ -34,11 +34,9 @@ Study groups help hold one accountable, but sometimes in-person study sessions j
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
+```
+![StudyBud Sequence Diagram](https://github.com/user-attachments/assets/88b8722a-1ccb-4768-a8c1-b1b102648760)
+
 ```
 
 ### Key features
@@ -48,7 +46,8 @@ sequenceDiagram
 - Display of users currently joined
 - Ability to indicate that you've completed a project, notification sent to other joined users
 - Display of joined students' project completion stats
-- Displayed stats update in real-time
+- Displayed stats update in real-time![StudyBud Sequence Diagram](https://github.com/user-attachments/assets/afe497d0-4f92-48d1-a552-9aead7399ce5)
+
 - Completion stats are persistently stored
 - Notifications sent to other users when one user joins/leaves
 
