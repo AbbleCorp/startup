@@ -18,11 +18,11 @@ StudyBud is a web application that allows students to join a virtual study room 
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
+- [X] Proper use of Markdown
 - [X] A concise and compelling elevator pitch
 - [X] Description of key features
-- [ ] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [X] Description of how you will use each technology
+- [X] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
@@ -30,11 +30,12 @@ Study groups help hold one accountable, but sometimes in-person study sessions j
 
 ### Design
 
-![Design image](placeholder.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<img width="904" alt="StudyBudDesignDraft" src="https://github.com/user-attachments/assets/b8649ba5-2ee2-4804-b4cc-be70e8804eb9" />
+
 
 ### Sequence Diagram
+This is a sequence diagram showing the interaction of users with the backend
 ![StudyBudSequenceDiagram](https://github.com/user-attachments/assets/a621ad10-f12c-4efc-896c-ffc957f0af39)
 
 
@@ -46,8 +47,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 - Display of users currently joined
 - Ability to indicate that you've completed a project, notification sent to other joined users
 - Display of joined students' project completion stats
-- Displayed stats update in real-time![StudyBud Sequence Diagram](https://github.com/user-attachments/assets/afe497d0-4f92-48d1-a552-9aead7399ce5)
-
+- Displayed stats update in real-time
 - Completion stats are persistently stored
 - Notifications sent to other users when one user joins/leaves
 
@@ -55,7 +55,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
+- **HTML** - Uses correct HTML structure for application. Two HTML pages. One for login and one displaying the study room. Hyperlinks to choice artifact.
 - **CSS** - Application styling for different screen sizes, soft colors, good whitespace
 - **React** - Provides login/registration, joined users display, functional buttons for sending encouragement/completing projects, use of React for routing and other components
 - **Service** - Backend Service with endpoints for:
