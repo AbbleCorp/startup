@@ -11,6 +11,7 @@
 ## AWS Notes
 
 Elastic IP: 34.225.220.203
+
 SSH command: ssh -i C:\SyncThing\Abbie_xap\School\W2025\CS260\production.pem ubuntu@34.225.220.203
 
 ## HTML Notes
