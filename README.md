@@ -1,8 +1,8 @@
-# Your startup name here
+# StudyBud
 
 [My Notes](notes.md)
 
-A brief description of the application here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+StudyBud is a web application that allows students to join a virtual study room to help each other stay accountable. They will login, and the application will show a list of students currently joined. Students can send each other encouragement that will or send a notification indicating that they have completed their assignment. Similar to a scoreboard, there is a page that displays how many projects a student has completed while logged into the study room. When a student enters, leaves, sends encouragement, or completes an assignment, a notification message is sent to other students currently in the study room.
 
 
 > [!NOTE]
@@ -18,45 +18,55 @@ A brief description of the application here. Lorem ipsum dolor sit amet, consect
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [X] Proper use of Markdown
+- [X] A concise and compelling elevator pitch
+- [X] Description of key features
+- [X] Description of how you will use each technology
+- [X] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Study groups help hold one accountable, but sometimes in-person study sessions just aren't realistic. The StudyBud application allows students to join a virtual study room with other students to stay more productive and get more done. As each student joins, other students are notified so they can send each other encouragement. As a student finishes an assignment, they can add it to their total completed projects, so students can look back and see how much they've accomplished while studying with StudyBud. Upon indicating project completion, other students are notified so they can celebrate together!
 
 ### Design
 
-![Design image](placeholder.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<img width="904" alt="StudyBudDesignDraft" src="https://github.com/user-attachments/assets/b8649ba5-2ee2-4804-b4cc-be70e8804eb9" />
 
-```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
-```
+
+### Sequence Diagram
+This is a sequence diagram showing the interaction of users with the backend
+![StudyBudSequenceDiagram](https://github.com/user-attachments/assets/a621ad10-f12c-4efc-896c-ffc957f0af39)
+
+
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Secure login over HTTPS
+- Ability to send other users encouragement
+- Display of users currently joined
+- Ability to indicate that you've completed a project, notification sent to other joined users
+- Display of joined students' project completion stats
+- Displayed stats update in real-time
+- Completion stats are persistently stored
+- Notifications sent to other users when one user joins/leaves
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - Uses correct HTML structure for application. Two HTML pages. One for login and one displaying the study room. Hyperlinks to choice artifact.
+- **CSS** - Application styling for different screen sizes, soft colors, good whitespace
+- **React** - Provides login/registration, joined users display, functional buttons for sending encouragement/completing projects, use of React for routing and other components
+- **Service** - Backend Service with endpoints for:
+  - Login
+  - Register
+  - Logout
+  - Sending encouragement
+    - display either cat picture (using service https://cataas.com/) or random fact (using https://uselessfacts.jsph.pl/) 
+  - Completing Project
+- **DB/Login** - Store users and completed project stats in database. Register and login users with account info securely stored in database. Can't join study room unless logged in.
+- **WebSocket** - When users join, leave, send encouragement, and complete projects, notifications are broadcast to all other users
 
 ## 🚀 AWS deliverable
 
