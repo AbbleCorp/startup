@@ -72,21 +72,21 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
+- [X] **Server deployed and accessible with custom domain name** - [My server link](https://abblecorp.click).
 
 ## 🚀 HTML deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [X] **HTML pages** - I created four html pages, the home/login, about, project completion, and main study page.
+- [X] **Proper HTML element usage** - I used proper html structure and tags for BODY, NAV, MAIN, HEADER, FOOTER.
+- [X] **Links** - I included links between pages for easier navigation, but may remove some links later.
+- [X] **Text** - Added textual content and placeholders.
+- [X] **3rd party API placeholder** - I added a placeholder for 3rd party API.
+- [X] **Images** - I included an image on the about page.
+- [X] **Login placeholder** - I included a login placeholder.
+- [X] **DB data placeholder** - I included a placeholder for the DB data on the Project Completion page.
+- [X] **WebSocket placeholder** - I included a websocket placeholder on the main study page.
 
 ## 🚀 CSS deliverable
 
