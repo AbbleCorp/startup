@@ -1,0 +1,98 @@
+* {
+    background-color:rgb(168, 205, 146);
+    font-family: sans-serif;
+    color: rgb(51, 69, 42)
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-width: 375px;
+    margin-bottom: 0;
+  }
+  
+  header {
+    flex: 0 80px;
+  }
+
+  h3.title {
+    font-weight: bolder;
+    text-align: center;
+    padding: 20px;
+    padding-bottom: 0px;
+}
+  
+  main {
+    flex: 1 calc(90vh - 110px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  footer {
+    flex: 0 30px;
+  }
+  
+  menu {
+    flex: 1;
+    display: flex;
+    /*  overwrite Bootstrap so the menu does not wrap */
+    flex-direction: row !important;
+    list-style: none;
+  }
+  
+
+  menu .nav-item {
+    padding: 0 0.8em;
+    font-weight: bold;
+  }
+
+
+  a.nav-link.active {
+    padding: 10px;
+  }
+
+  a.nav-link.active:hover {
+    background-color:rgb(207, 230, 194);
+  }
+
+  main .input {
+    background-color: rgb(207, 230, 194) !important;
+  }
+
+  .btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: rgb(78, 108, 64) !important;
+    color: rgb(207, 230, 194) !important;
+    border-color:rgb(78, 108, 64) !important;
+}
+
+    .btn-primary:hover {
+    background-color:rgb(51, 69, 42) !important;
+}
+  
+    footer {
+        background-color: rgb(51, 69, 42);
+    }
+
+    footer span {
+        color: rgb(207, 230, 194);
+        opacity: 50%;
+    }
+
+  footer a{
+    float: right;
+  }
+  
+  @media (max-height: 500px) {
+    header {
+      display: none;
+    }
+    footer {
+      display: none;
+    }
+    main {
+      flex: 1 100vh;
+    }
+  }
+  
