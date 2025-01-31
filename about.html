@@ -1,40 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+      <meta charset="UTF-8" />
+      <!-- Tell browsers not to scale the viewport automatically -->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      
+    <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="about.css" />
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+    crossorigin="anonymous"
+  />
+
     </head>
     <body>
         <header>
-          <h3> StudyBud</h3>
+          <h3 class="title"> StudyBud</h3>
         <nav>
-            <menu>
-                <p> Planning to remove some links later to preserve login logic</p>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="studyroom.html">StudyRoom</a></li>
-                <li><a href="projects.html">Project Completion Tracker</a></li>
-                <li><a href="about.html">About</a></li>
-            </menu>
-          </nav>
+          <nav>
+            <menu class="navbar-nav">
+                <li class="nav-item"><a class="nav-link active"href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link active"href="studyroom.html">StudyRoom</a></li>
+                <li class="nav-item"><a class="nav-link active"href="projects.html">Project Completion Tracker</a></li>
+                <li class="nav-item"><a class="nav-link active"href="about.html">About</a></li>
+              </menu>
+        </nav>
     
           <hr />
         </header>
     
-        <main>
+        <main class="container-fluid text-center">
           <div id="picture" class="picture-box"><img width=300px src="studying_meme.jpg" alt="random" /></div>
     
+          <div>
           <p>
             StudyBud is a web application that allows students to join a virtual study room to help each other 
-            stay accountable. They will login, and the application will show a list of students currently joined. 
-            Students can send each other encouragement that will or send a notification indicating that they have 
-            completed their assignment. Similar to a scoreboard, there is a page that displays how many projects 
-            a student has completed while logged into the study room. When a student enters, leaves, sends 
-            encouragement, or completes an assignment, a notification message is sent to other students currently 
-            in the study room.
+            stay accountable. Students can send each other encouragement that will or indicate that that they have 
+            completed their assignment. Similar to a scoreboard, the Project Completion Tracker displays how many projects 
+            a student has completed while logged into the study room. 
           </p>
+          </div>
+          
           <footer>
-            <hr>
-            <p>
-                <a href="https://github.com/AbbleCorp/startup/blob/main/README.md">GitHub</a>
-            </p>
+            <span class="text-reset">Abbie Omer</span>
+                <a class="text-reset" href="https://github.com/AbbleCorp/startup/blob/main/README.md">GitHub</a>
         </footer>
 
     </body>
