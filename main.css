@@ -71,14 +71,11 @@ body {
     background-color:rgb(51, 69, 42) !important;
 }
   
-    footer {
+    footer, .text-reset {
         background-color: rgb(51, 69, 42);
+        color: rgb(207, 230, 194, 0.5);
     }
 
-    footer span {
-        color: rgb(207, 230, 194);
-        opacity: 50%;
-    }
 
   footer a{
     float: right;
