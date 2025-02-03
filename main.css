@@ -76,6 +76,10 @@ body {
         color: rgb(207, 230, 194, 0.5);
     }
 
+    .text-reset {
+      padding-left: .5em;
+      padding-right: .5em;
+    }
 
   footer a{
     float: right;
