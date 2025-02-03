@@ -1,0 +1,28 @@
+.fact-box, .fact, .welcome, .display-box, .display-text {
+    background-color: rgb(207, 230, 194);
+}
+
+.fact-box {
+    margin-top: 1em;
+    padding: 1em;
+    border-radius: 25px;
+  }
+
+  .fact {
+    text-align: center;
+  }
+
+  .welcome {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .display-box {
+    border: rgb(78, 108, 64) thin;
+    border-style: solid;
+    border-radius:6px;
+    border-width: .15em;
+    padding: 15px;
+    height: 200px;
+  }
+
