@@ -1,10 +1,15 @@
 import React from 'react';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { Login } from './login/login';
+import { Studyroom } from './studyroom/studyroom';
+import { Projects } from './projects/projects';
+import { About } from './about/about';
 
 export default function App() {
   return (
+    <BrowserRouter>
   <div className='body'>
   <header>
   <h3 className="title"> StudyBud</h3>
@@ -27,6 +32,7 @@ export default function App() {
                 <a className="text-reset" to="https://github.com/AbbleCorp/startup/blob/main/README.md">GitHub</a>
         </footer>
         </div>
+      </BrowserRouter>
         );
 }
 
