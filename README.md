@@ -92,12 +92,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Header, footer, and main content body** - I did not complete this part of the deliverable.
-- [ ] **Navigation elements** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing** - I did not complete this part of the deliverable.
-- [ ] **Application elements** - I did not complete this part of the deliverable.
-- [ ] **Application text content** - I did not complete this part of the deliverable.
-- [ ] **Application images** - I did not complete this part of the deliverable.
+- [X] **Header, footer, and main content body** - I styled the header and footer to look the same across all pages, with main content styled specific to each page.
+- [X] **Navigation elements** - I styled the navigation elements to look the same across all pages, and to respond to hovering.
+- [X] **Responsive to window resizing** - The page responds to window resizing.
+- [X] **Application elements** - The studyroom page contains styled placeholders for the 3rd party API and websocket updates. The project completion tracker page contains a styled table as a placeholder for data.
+- [X] **Application text content** - The about page contains text content about the application, and the placeholders have some text content (will later be replaced when API call is implemented).
+- [X] **Application images** - The about page contains an image.
 
 ## 🚀 React part 1: Routing deliverable
 
