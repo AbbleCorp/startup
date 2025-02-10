@@ -4,7 +4,7 @@
     color: rgb(51, 69, 42)
 }
 
-body {
+.body {
     display: flex;
     flex-direction: column;
     min-width: 375px;
