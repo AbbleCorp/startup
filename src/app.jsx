@@ -14,18 +14,25 @@ export default function App() {
   <header>
   <h3 className="title"> StudyBud</h3>
   <nav>
-  <menu class="navbar-nav">
-      <li class="nav-item"><a class="nav-link active"href="index.html">Home</a></li>
-      <li class="nav-item"><a class="nav-link active"href="studyroom.html">StudyRoom</a></li>
-      <li class="nav-item"><a class="nav-link active"href="projects.html">Project Completion Tracker</a></li>
-      <li class="nav-item"><a class="nav-link active"href="about.html">About</a></li>
+  <menu className="navbar-nav">
+      <li className="nav-item"><NavLink className="nav-link active"to="login">Login</NavLink></li>
+      <li className="nav-item"><NavLink className="nav-link active"to="studyroom">StudyRoom</NavLink></li>
+      <li className="nav-item"><NavLink className="nav-link active"to="projects">Project Completion Tracker</NavLink></li>
+      <li className="nav-item"><NavLink className="nav-link active"to="about">About</NavLink></li>
     </menu>
 </nav>
 
   <hr />
 </header>
 
-   <main>App will display here</main>
+<Routes>
+  <Route path='/' element={<Login />} exact />
+  <Route path='/login' element={<Login />} exact />
+  <Route path='/studyroom' element={<Studyroom />} />
+  <Route path='/projects' element={<Projects />} />
+  <Route path='/about' element={<About />} />
+  <Route path='*' element={<NotFound />} />
+</Routes>
 
   <footer>
             <span className="text-reset">Abbie Omer</span>
