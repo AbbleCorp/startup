@@ -65,6 +65,8 @@
     background-color: rgb(78, 108, 64) !important;
     color: rgb(207, 230, 194) !important;
     border-color:rgb(78, 108, 64) !important;
+    margin: 5px;
+    margin-top: 0px;
 }
 
     .btn-primary:hover {
