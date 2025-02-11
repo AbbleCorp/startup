@@ -8,7 +8,7 @@ export function Projects() {
 <main>
           <h3>Project Completion Tracker</h3>
           <p>Keep track of how many projects you've completed!</p>
-          <table class="table table-striped table-responsive">
+          <table className="table table-striped table-responsive">
             <thead>
               <tr>
                 <th scope="col">#</th>
