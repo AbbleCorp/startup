@@ -1,3 +1,4 @@
-/* .table-striped>tr:nth-child(odd){
-    background-color:red;
- } */
+.table {
+    --bs-table-bg:  rgb(191, 222, 172);
+    --bs-table-striped-bg: rgb(184, 217, 163);
+}
