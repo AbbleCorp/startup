@@ -3,7 +3,7 @@ import React from 'react';
 export function Login() {
   return (
     <main>
-    <form method="get" action="studyroom.html">
+    <form method="get" action="studyroom">
         <div>
         <label for="username">Username: </label>
         <input type="text" className="input" name="varUsername" placeholder="Username"/>
