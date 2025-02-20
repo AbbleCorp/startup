@@ -36,7 +36,7 @@ export default function App() {
 
   <footer>
             <span className="text-reset">Abbie Omer</span>
-                <a className="text-reset" to="https://github.com/AbbleCorp/startup/blob/main/README.md">GitHub</a>
+                <a className="text-reset" href="https://github.com/AbbleCorp/startup/blob/main/README.md">GitHub</a>
         </footer>
         </div>
       </BrowserRouter>
