@@ -29,7 +29,7 @@ export function Login({ onAuthChange }) {
   };
 
   if (isLoggedIn) {
-    return <div className="loggedIn">You are now logged in.</div>;
+    return <div className="loggedIn">You are now logged in. Navigate to the StudyRoom or Project Completion Tracker to get started!</div>;
   }
 
   return (
