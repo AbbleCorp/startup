@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './login.css';
 import { AuthState } from './authState';
 
-export function Login({ onAuthChange, authState }) {
+export function Login({ authState, onAuthChange }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 

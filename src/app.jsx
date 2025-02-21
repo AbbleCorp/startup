@@ -12,6 +12,12 @@ export default function App() {
   const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
   const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
   const [authState, setAuthState] = React.useState(currentAuthState);
+  
+  const handleAuthChange = (userName, authState) => {
+    setUserName(userName);
+    setAuthState(authState);
+  };
+  
   return (
     <BrowserRouter>
   <div className='body'>
@@ -31,7 +37,6 @@ export default function App() {
 
 <Routes>
   <Route path='/' element={<Login
-                userName={userName}
                 authState={authState}
                 onAuthChange={(userName, authState) => {
                   setAuthState(authState);
@@ -39,14 +44,13 @@ export default function App() {
                 }}
               />} exact />
   <Route path='/login' element={<Login
-                userName={userName}
                 authState={authState}
                 onAuthChange={(userName, authState) => {
                   setAuthState(authState);
                   setUserName(userName);
                 }}
               />} exact />
-  <Route path='/studyroom' element={<Studyroom />} />
+  <Route path='/studyroom' element={<Studyroom userName onAuthChange={handleAuthChange}/>} />
   <Route path='/projects' element={<Projects />} />
   <Route path='/about' element={<About />} />
   <Route path='*' element={<NotFound />} />
