@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import './login.css';
 import { AuthState } from './authState';
 
-export function Login({ onAuthChange }) {
+export function Login({ onAuthChange, authState }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const isFormValid = username && password;
 
@@ -16,7 +15,6 @@ export function Login({ onAuthChange }) {
       const storedPassword = localStorage.getItem('password');
       if (storedUsername === username && storedPassword === password) {
         onAuthChange(username, AuthState.Authenticated);
-        setIsLoggedIn(true);
       } else {
         alert('Invalid username or password');
       }
@@ -24,11 +22,10 @@ export function Login({ onAuthChange }) {
       localStorage.setItem('username', username);
       localStorage.setItem('password', password);
       onAuthChange(username, AuthState.Authenticated);
-      setIsLoggedIn(true);
     }
   };
 
-  if (isLoggedIn) {
+  if (authState === AuthState.Authenticated) {
     return <div className="loggedIn">You are now logged in. Navigate to the StudyRoom or Project Completion Tracker to get started!</div>;
   }
 
