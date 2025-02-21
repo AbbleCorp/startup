@@ -1,43 +1,49 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { AuthState } from './authState';
 
-import Button from 'react-bootstrap/Button';
-import { MessageDialog } from './messageDialog';
-
-export function Unauthenticated(props) {
-  const [userName, setUserName] = React.useState(props.userName);
-  const [password, setPassword] = React.useState('');
-  const [displayError, setDisplayError] = React.useState(null);
-
-  async function loginUser() {
-    localStorage.setItem('userName', userName);
-    props.onLogin(userName);
-  }
-
-  async function createUser() {
-    localStorage.setItem('userName', userName);
-    props.onLogin(userName);
-  }
+export function Unauthenticated({ onAuthChange }) {
+  useEffect(() => {
+    const username = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+    if (username && password) {
+      onAuthChange(AuthState.Authenticated);
+    }
+  }, [onAuthChange]);
 
   return (
-    <>
-      <div>
-        <div className='input-group mb-3'>
-          <span className='input-group-text'>@</span>
-          <input className='form-control' type='text' value={userName} onChange={(e) => setUserName(e.target.value)} placeholder='your@email.com' />
+    <main>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="username">Username: </label>
+          <input
+            type="text"
+            className="input"
+            name="varUsername"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </div>
-        <div className='input-group mb-3'>
-          <span className='input-group-text'>🔒</span>
-          <input className='form-control' type='password' onChange={(e) => setPassword(e.target.value)} placeholder='password' />
+        <br />
+        <div>
+          <label htmlFor="password">Password: </label>
+          <input
+            type="password"
+            className="input"
+            name="varPassword"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
-        <Button variant='primary' onClick={() => loginUser()} disabled={!userName || !password}>
+        <br />
+        <button type="submit" className="btn btn-primary" disabled={!isFormValid}>
           Login
-        </Button>
-        <Button variant='secondary' onClick={() => createUser()} disabled={!userName || !password}>
-          Create
-        </Button>
-      </div>
-
-      <MessageDialog message={displayError} onHide={() => setDisplayError(null)} />
-    </>
+        </button>
+        <button type="submit" className="btn btn-primary" disabled={!isFormValid}>
+          Register
+        </button>
+      </form>
+    </main>
   );
 }

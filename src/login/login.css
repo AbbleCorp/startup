@@ -3,3 +3,12 @@
     margin-top: 0px;
 }
 
+.loggedIn {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh; 
+    text-align: center;
+    padding-top: 20vh; 
+    font-size: large;
+}

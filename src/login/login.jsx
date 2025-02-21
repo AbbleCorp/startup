@@ -1,15 +1,40 @@
 import React, { useState } from 'react';
 import './login.css';
+import { AuthState } from './authState';
 
-export function Login() {
+export function Login({ onAuthChange }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const isFormValid = username && password;
 
+  const handleSubmit = (e, action) => {
+    e.preventDefault();
+    if (action === 'login') {
+      const storedUsername = localStorage.getItem('username');
+      const storedPassword = localStorage.getItem('password');
+      if (storedUsername === username && storedPassword === password) {
+        onAuthChange(username, AuthState.Authenticated);
+        setIsLoggedIn(true);
+      } else {
+        alert('Invalid username or password');
+      }
+    } else if (action === 'register') {
+      localStorage.setItem('username', username);
+      localStorage.setItem('password', password);
+      onAuthChange(username, AuthState.Authenticated);
+      setIsLoggedIn(true);
+    }
+  };
+
+  if (isLoggedIn) {
+    return <div className="loggedIn">You are now logged in.</div>;
+  }
+
   return (
     <main>
-      <form method="get" action="studyroom">
+      <form>
         <div>
           <label htmlFor="username">Username: </label>
           <input
@@ -34,10 +59,20 @@ export function Login() {
           />
         </div>
         <br />
-        <button type="submit" className="btn btn-primary" disabled={!isFormValid}>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={!isFormValid}
+          onClick={(e) => handleSubmit(e, 'login')}
+        >
           Login
         </button>
-        <button type="submit" className="btn btn-primary" disabled={!isFormValid}>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={!isFormValid}
+          onClick={(e) => handleSubmit(e, 'register')}
+        >
           Register
         </button>
       </form>
