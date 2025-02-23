@@ -19,13 +19,13 @@
 
   .display-box {
     width: 80%;
-    border: rgb(78, 108, 64) thin;
-    border-style: solid;
-    border-radius:6px;
-    border-width: .15em;
-    padding: 15px;
-    height: 200px;
-  }
+    border: rgb(78, 108, 64) medium solid; /* Combine border properties */
+    border-radius: 6px;
+    height: 200px; /* Set a fixed height for the display box */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 10px; /* Optional: Add padding for better spacing */
+    margin: 0 auto; /* Center the display box */
+}
 
   .btn-group .btn {
     margin: 0px;

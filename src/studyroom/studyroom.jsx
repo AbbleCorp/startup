@@ -32,13 +32,17 @@ export function Studyroom({ onAuthChange }) {
 
 
   const handleEncouragement = () => {
-    // Placeholder for sending encouragement
+    const username = localStorage.getItem('username');
+    if (username) {
+    setLog((prevLog) => [...prevLog, `${username} is sending everyone encouragement!`]);
+    }
   }
 
   const handleProjectCompletion = () => {
     const username = localStorage.getItem('username');
     if (username) {
       updateProjectsLocal(username);
+      setLog((prevLog) => [...prevLog, `${username} has completed a project!`]);
     }
   };
 
@@ -50,7 +54,9 @@ export function Studyroom({ onAuthChange }) {
       </div>
       <hr />
       <div className="display-box">
-        <p className="display-text">log</p>
+        {log.map((entry, index) => (
+          <p key={index} className="display-text">{entry}</p>
+        ))}
       </div>
       <br />
       <div className="btn-group">
