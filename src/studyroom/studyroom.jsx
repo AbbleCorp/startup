@@ -4,6 +4,7 @@ import './studyroom.css';
 import { AuthState } from '../login/authState';
 
 export function Studyroom({ onAuthChange }) {
+  const [log, setLog] = React.useState(['Everyone is studying hard!']);
   const navigate = useNavigate();
 
   const handleEndSession = () => {
@@ -11,6 +12,34 @@ export function Studyroom({ onAuthChange }) {
     localStorage.removeItem('password');
     onAuthChange('', AuthState.Unauthenticated);
     navigate('/login');
+  };
+
+  const updateProjectsLocal = (username) => {
+    let projects = {};
+    const projectsText = localStorage.getItem('projects');
+    if (projectsText) {
+      projects = JSON.parse(projectsText);
+    }
+    if (projects[username]) {
+      projects[username].count += 1; // Increment the project count for the user
+    } else {
+      projects[username] = { count: 1, lastCompleted: new Date().toISOString() }; // Initialize the project count and timestamp for the user
+    }
+    projects[username].lastCompleted = new Date().toISOString(); // Update the last completed timestamp
+
+    localStorage.setItem('projects', JSON.stringify(projects));
+  };
+
+
+  const handleEncouragement = () => {
+    // Placeholder for sending encouragement
+  }
+
+  const handleProjectCompletion = () => {
+    const username = localStorage.getItem('username');
+    if (username) {
+      updateProjectsLocal(username);
+    }
   };
 
   return (
@@ -21,12 +50,12 @@ export function Studyroom({ onAuthChange }) {
       </div>
       <hr />
       <div className="display-box">
-        <p className="display-text"> Placeholder for scrolling textbox that displays updates about users joining, leaving, completing projects, or sending encouragement </p>
+        <p className="display-text">log</p>
       </div>
       <br />
       <div className="btn-group">
-        <button type="button" className="btn btn-primary">Complete Project</button>
-        <button type="button" className="btn btn-primary">Send Encouragement</button>
+        <button type="button" className="btn btn-primary" onClick={handleProjectCompletion}>Complete Project</button>
+        <button type="button" className="btn btn-primary" onClick={handleEncouragement}>Send Encouragement</button>
         <button type="button" className="btn btn-primary" onClick={handleEndSession}>End Study Session</button>
       </div>
       <br />

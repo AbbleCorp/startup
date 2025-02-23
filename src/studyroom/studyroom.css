@@ -18,6 +18,7 @@
   }
 
   .display-box {
+    width: 80%;
     border: rgb(78, 108, 64) thin;
     border-style: solid;
     border-radius:6px;
