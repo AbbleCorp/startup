@@ -111,8 +111,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [X] **All functionality implemented or mocked out** - I implemented login/register, completing projects, sending encouragement, and ending a study session. Used setInterval to simulate websocket messages from other users. Also simulated session logs, as well as set up React to do 3rd party API calls later on.
+- [X] **Hooks** - I use several instances of useEffect, primarily on the studyroom and projects pages.
 
 ## 🚀 Service deliverable
 
