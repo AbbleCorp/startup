@@ -5,9 +5,17 @@ import { AuthState } from '../login/authState';
 
 export function Studyroom({ onAuthChange }) {
   const [log, setLog] = React.useState(['Everyone is studying hard!']);
+  const [fact, setFact] = React.useState('Let\'s get started! Did you know?\n');
   const navigate = useNavigate();
 
+
+  React.useEffect(() => {
+    // later we can fetch the fact from an API
+    setFact(fact +  '90% of the world\'s data was created within the last two years.');
+  }, []);
+
   const handleEndSession = () => {
+    setLog((prevLog) => [...prevLog, `${username} is done studying!`]);
     localStorage.removeItem('username');
     localStorage.removeItem('password');
     onAuthChange('', AuthState.Unauthenticated);
@@ -49,8 +57,8 @@ export function Studyroom({ onAuthChange }) {
   return (
     <main>
       <div className="fact-box">
-        <p className="fact"> Placeholder for 3rd party API-call - will display some message encouraging users to study followed by a random fun fact from the API </p>
-        <p className="welcome"> Placeholder for a welcome message</p>
+        <p className="fact">{fact}</p>
+        <p className="welcome">Welcome to StudyBud! Mark projects off, or send others encouragement with the buttons below!</p>
       </div>
       <hr />
       <div className="display-box">

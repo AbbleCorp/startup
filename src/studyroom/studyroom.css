@@ -6,10 +6,13 @@
     margin-top: 1em;
     padding: 1em;
     border-radius: 25px;
+    width: 80%
   }
 
   .fact {
     text-align: center;
+    white-space: pre-line;
+
   }
 
   .welcome {
