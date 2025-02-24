@@ -32,8 +32,6 @@ export function Studyroom({ onAuthChange }) {
   const handleEndSession = () => {
     const username = localStorage.getItem('username');
     setLog((prevLog) => [...prevLog, `${username} is done studying!`]);
-    localStorage.removeItem('username');
-    localStorage.removeItem('password');
     setLog(['Everyone is studying hard!']);
     localStorage.removeItem('sessionLog');
     onAuthChange('', AuthState.Unauthenticated);
