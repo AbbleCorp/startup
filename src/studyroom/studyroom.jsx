@@ -28,12 +28,13 @@ export function Studyroom({ onAuthChange }) {
     if (projectsText) {
       projects = JSON.parse(projectsText);
     }
+    const currentDate = new Date().toISOString().split('T')[0];
     if (projects[username]) {
       projects[username].count += 1; // Increment the project count for the user
     } else {
-      projects[username] = { count: 1, lastCompleted: new Date().toISOString() }; // Initialize the project count and timestamp for the user
+      projects[username] = { count: 1, lastCompleted: currentDate }; // Initialize the project count and timestamp for the user
     }
-    projects[username].lastCompleted = new Date().toISOString(); // Update the last completed timestamp
+    projects[username].lastCompleted = currentDate; // Update the last completed timestamp
 
     localStorage.setItem('projects', JSON.stringify(projects));
   };
