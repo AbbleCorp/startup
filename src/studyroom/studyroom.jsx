@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './studyroom.css';
 import { AuthState } from '../login/authState';
+import { Simulator } from './eventHandler';
 
 export function Studyroom({ onAuthChange }) {
   const [log, setLog] = React.useState(() => {
@@ -18,7 +19,7 @@ export function Studyroom({ onAuthChange }) {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    setFact(fact + '90% of the world\'s data was created within the last two years.'); 
+    setFact(fact + '90% of the world\'s data was created within the last two years.');
   }, []);
 
   React.useEffect(() => {
@@ -34,7 +35,7 @@ export function Studyroom({ onAuthChange }) {
     setLog((prevLog) => [...prevLog, `${username} is done studying!`]);
     setLog(['Everyone is studying hard!']);
     localStorage.removeItem('sessionLog');
-    onAuthChange('', AuthState.Unauthenticated);
+        onAuthChange('', AuthState.Unauthenticated);
     navigate('/login');
   };
 
@@ -72,6 +73,7 @@ export function Studyroom({ onAuthChange }) {
 
   return (
     <main>
+      <Simulator updateSessionLog={updateSessionLog} />
       <div className="fact-box">
         <p className="fact">{fact}</p>
         <p className="welcome">Welcome to StudyBud! Mark projects off, or send others encouragement with the buttons below!</p>
