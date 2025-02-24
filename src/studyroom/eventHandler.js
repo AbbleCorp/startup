@@ -22,8 +22,8 @@ export function Simulator({ updateSessionLog }) {
       updateSessionLog(message);
     }, 7000); // Generate a message every 7 seconds
 
-    return () => clearInterval(interval); // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, [updateSessionLog]);
 
-  return null; // This component does not render anything
+  return null; 
 }
