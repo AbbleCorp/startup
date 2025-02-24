@@ -4,20 +4,38 @@ import './studyroom.css';
 import { AuthState } from '../login/authState';
 
 export function Studyroom({ onAuthChange }) {
-  const [log, setLog] = React.useState(['Everyone is studying hard!']);
+  const [log, setLog] = React.useState(() => {
+    const savedLog = localStorage.getItem('sessionLog');
+    if (savedLog) {
+      return JSON.parse(savedLog);
+    } else {
+      const initialLog = ['Everyone is studying hard!'];
+      localStorage.setItem('sessionLog', JSON.stringify(initialLog));
+      return initialLog;
+    }
+  });
   const [fact, setFact] = React.useState('Let\'s get started! Did you know?\n');
   const navigate = useNavigate();
 
-
   React.useEffect(() => {
-    // later we can fetch the fact from an API
-    setFact(fact +  '90% of the world\'s data was created within the last two years.');
+    setFact(fact + '90% of the world\'s data was created within the last two years.'); 
   }, []);
 
+  React.useEffect(() => {
+    localStorage.setItem('sessionLog', JSON.stringify(log));
+  }, [log]);
+
+  const updateSessionLog = (logUpdate) => {
+    setLog((prevLog) => [...prevLog, logUpdate]);
+  };
+
   const handleEndSession = () => {
+    const username = localStorage.getItem('username');
     setLog((prevLog) => [...prevLog, `${username} is done studying!`]);
     localStorage.removeItem('username');
     localStorage.removeItem('password');
+    setLog(['Everyone is studying hard!']);
+    localStorage.removeItem('sessionLog');
     onAuthChange('', AuthState.Unauthenticated);
     navigate('/login');
   };
@@ -39,19 +57,18 @@ export function Studyroom({ onAuthChange }) {
     localStorage.setItem('projects', JSON.stringify(projects));
   };
 
-
   const handleEncouragement = () => {
     const username = localStorage.getItem('username');
     if (username) {
-    setLog((prevLog) => [...prevLog, `${username} is sending everyone encouragement!`]);
+      updateSessionLog(`${username} is sending encouragement!`);
     }
-  }
+  };
 
   const handleProjectCompletion = () => {
     const username = localStorage.getItem('username');
     if (username) {
       updateProjectsLocal(username);
-      setLog((prevLog) => [...prevLog, `${username} has completed a project!`]);
+      updateSessionLog(`${username} has completed a project!`);
     }
   };
 
