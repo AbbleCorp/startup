@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './login.css';
 import { AuthState } from './authState';
 
 export function Login({ authState, onAuthChange }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const navigate = useNavigate();
   const isFormValid = username && password;
 
   const handleSubmit = (e, action) => {
@@ -26,7 +27,7 @@ export function Login({ authState, onAuthChange }) {
   };
 
   if (authState === AuthState.Authenticated) {
-    return <div className="loggedIn">You are now logged in. Navigate to the StudyRoom or Project Completion Tracker to get started!</div>;
+    navigate('/studyroom');
   }
 
   return (
