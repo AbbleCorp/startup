@@ -5,21 +5,36 @@ import { AuthState } from '../login/authState';
 import { Simulator } from './eventHandler';
 
 export function Studyroom({ onAuthChange }) {
-  const [log, setLog] = React.useState(() => {
-    const savedLog = localStorage.getItem('sessionLog');
-    if (savedLog) {
-      return JSON.parse(savedLog);
-    } else {
-      const initialLog = ['Everyone is studying hard!'];
-      localStorage.setItem('sessionLog', JSON.stringify(initialLog));
-      return initialLog;
-    }
-  });
+  const [log, setLog] = React.useState([]);
   const [fact, setFact] = React.useState('Let\'s get started! Did you know?\n');
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    setFact(fact + '90% of the world\'s data was created within the last two years.');
+    fetch('/api/log')
+      .then((response) => response.json())
+      .then((fetchedLog) => {
+        if (fetchedLog.length === 0) {
+          const initialLog = ['Everyone is studying hard!'];
+          setLog(initialLog);
+          localStorage.setItem('sessionLog', JSON.stringify(initialLog));
+        } else {
+          setLog(fetchedLog);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching log:', error);
+        const initialLog = ['Everyone is studying hard!'];
+        setLog(initialLog);
+        localStorage.setItem('sessionLog', JSON.stringify(initialLog));
+      });
+  }, []);
+
+  React.useEffect(() => {
+    fetch('https://uselessfacts.jsph.pl/api/v2/facts/random')
+      .then((response) => response.json())
+      .then((randFact) => {
+        setFact(fact + randFact.text);
+      });
   }, []);
 
   React.useEffect(() => {
@@ -35,7 +50,7 @@ export function Studyroom({ onAuthChange }) {
     setLog((prevLog) => [...prevLog, `${username} is done studying!`]);
     setLog(['Everyone is studying hard!']);
     localStorage.removeItem('sessionLog');
-        onAuthChange('', AuthState.Unauthenticated);
+    onAuthChange('', AuthState.Unauthenticated);
     navigate('/login');
   };
 

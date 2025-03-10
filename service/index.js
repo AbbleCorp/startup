@@ -9,6 +9,7 @@ const authCookieName = 'token';
 // The scores and users are saved in memory and disappear whenever the service is restarted.
 let users = [];
 let projects = [];
+let log = ["Everyone is studying hard!"];
 
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -82,6 +83,15 @@ apiRouter.get('/projects', verifyAuth, (_req, res) => {
 apiRouter.post('/projects', verifyAuth, (req, res) => {
   projects = updateProjects(req.body);
   res.send(projects);
+});
+
+apiRouter.get('/log', verifyAuth, (_req, res) => {
+  res.send(projects);
+});
+
+apiRouter.post('/log', verifyAuth, (req, res) => {
+  log = updateLog(req.body);
+  res.send(log);
 });
 
 // Default error handler
