@@ -6,6 +6,7 @@ import { Simulator } from './eventHandler';
 
 export function Studyroom({ onAuthChange }) {
   const [log, setLog] = React.useState([]);
+  const [username, setUsername] = React.useState('');
   const [fact, setFact] = React.useState('Let\'s get started! Did you know?\n');
   const navigate = useNavigate();
 
@@ -16,7 +17,6 @@ export function Studyroom({ onAuthChange }) {
         if (fetchedLog.length === 0) {
           const initialLog = ['Everyone is studying hard!'];
           setLog(initialLog);
-          localStorage.setItem('sessionLog', JSON.stringify(initialLog));
         } else {
           setLog(fetchedLog);
         }
@@ -25,8 +25,12 @@ export function Studyroom({ onAuthChange }) {
         console.error('Error fetching log:', error);
         const initialLog = ['Everyone is studying hard!'];
         setLog(initialLog);
-        localStorage.setItem('sessionLog', JSON.stringify(initialLog));
       });
+  }, []);
+
+  React.useEffect(() => {
+    let userName = fetch('/user').then((response) => response.json());
+    setUsername(userName);
   }, []);
 
   React.useEffect(() => {
@@ -37,29 +41,35 @@ export function Studyroom({ onAuthChange }) {
       });
   }, []);
 
-  React.useEffect(() => {
-    localStorage.setItem('sessionLog', JSON.stringify(log));
-  }, [log]);
-
-  const updateSessionLog = (logUpdate) => {
-    setLog((prevLog) => [...prevLog, logUpdate]);
+  const updateSessionLog = async (logUpdate) => {
+    const updatedLog = [...log, logUpdate];
+    setLog(updatedLog);
+    await fetch('/api/log', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify(updatedLog),
+    });
   };
 
   const handleEndSession = () => {
-    const username = localStorage.getItem('username');
-    setLog((prevLog) => [...prevLog, `${username} is done studying!`]);
+    const endLog = `${username} is done studying!`;
+    updateSessionLog(endLog);
     setLog(['Everyone is studying hard!']);
-    localStorage.removeItem('sessionLog');
     onAuthChange('', AuthState.Unauthenticated);
     navigate('/login');
   };
 
-  const updateProjectsLocal = (username) => {
-    let projects = {};
-    const projectsText = localStorage.getItem('projects');
-    if (projectsText) {
-      projects = JSON.parse(projectsText);
-    }
+  const handleEncouragement = () => {
+    updateSessionLog(`${username} is sending encouragement!`);
+  };
+
+  const updateProjects = async () => {
+    let projects = await fetch('/api/projects', {
+      method: 'GET',
+    }).then((response) => response.json());
+
     const currentDate = new Date().toISOString().split('T')[0];
     if (projects[username]) {
       projects[username].count += 1; // Increment the project count for the user
@@ -68,27 +78,21 @@ export function Studyroom({ onAuthChange }) {
     }
     projects[username].lastCompleted = currentDate; // Update the last completed timestamp
 
-    localStorage.setItem('projects', JSON.stringify(projects));
+    await fetch('/api/projects', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify(projects),
+    });
+    updateSessionLog(`${username} has completed a project!`);
   };
 
-  const handleEncouragement = () => {
-    const username = localStorage.getItem('username');
-    if (username) {
-      updateSessionLog(`${username} is sending encouragement!`);
-    }
-  };
 
-  const handleProjectCompletion = () => {
-    const username = localStorage.getItem('username');
-    if (username) {
-      updateProjectsLocal(username);
-      updateSessionLog(`${username} has completed a project!`);
-    }
-  };
 
   return (
     <main>
-      <Simulator updateSessionLog={updateSessionLog} />
+      {/* <Simulator updateSessionLog={updateSessionLog} /> */}
       <div className="fact-box">
         <p className="fact">{fact}</p>
         <p className="welcome">Welcome to StudyBud! Mark projects off, or send others encouragement with the buttons below!</p>
@@ -101,7 +105,7 @@ export function Studyroom({ onAuthChange }) {
       </div>
       <br />
       <div className="btn-group">
-        <button type="button" className="btn btn-primary" onClick={handleProjectCompletion}>Complete Project</button>
+        <button type="button" className="btn btn-primary" onClick={updateProjects}>Complete Project</button>
         <button type="button" className="btn btn-primary" onClick={handleEncouragement}>Send Encouragement</button>
         <button type="button" className="btn btn-primary" onClick={handleEndSession}>End Study Session</button>
       </div>

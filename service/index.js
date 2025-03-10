@@ -8,14 +8,13 @@ const authCookieName = 'token';
 
 // The scores and users are saved in memory and disappear whenever the service is restarted.
 let users = [];
+let username = '';
 let projects = [];
 let log = ["Everyone is studying hard!"];
-
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 app.use(express.static('public'));
-
 
 // JSON body parsing using built-in middleware
 app.use(express.json());
@@ -23,31 +22,31 @@ app.use(express.json());
 // Use the cookie parser middleware for tracking authentication tokens
 app.use(cookieParser());
 
-
 // Router for service endpoints
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 // CreateAuth a new user
 apiRouter.post('/auth/create', async (req, res) => {
-  if (await findUser('email', req.body.email)) {
+  if (await findUser('username', req.body.username)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {
-    const user = await createUser(req.body.email, req.body.password);
-
+    const user = await createUser(req.body.username, req.body.password);
+    username = req.body.username;
     setAuthCookie(res, user.token);
-    res.send({ email: user.email });
+    res.send({ user: user.username });
   }
 });
 
 // GetAuth login an existing user
 apiRouter.post('/auth/login', async (req, res) => {
-  const user = await findUser('email', req.body.email);
+  const user = await findUser('username', req.body.username);
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuid.v4();
       setAuthCookie(res, user.token);
-      res.send({ email: user.email });
+      username = req.body.username;
+      res.send({ user: user.username });
       return;
     }
   }
@@ -74,11 +73,9 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
-
 apiRouter.get('/projects', verifyAuth, (_req, res) => {
   res.send(projects);
 });
-
 
 apiRouter.post('/projects', verifyAuth, (req, res) => {
   projects = updateProjects(req.body);
@@ -86,12 +83,17 @@ apiRouter.post('/projects', verifyAuth, (req, res) => {
 });
 
 apiRouter.get('/log', verifyAuth, (_req, res) => {
-  res.send(projects);
+  res.send(log);
 });
 
 apiRouter.post('/log', verifyAuth, (req, res) => {
-  log = updateLog(req.body);
+  log = req.body;
   res.send(log);
+});
+
+// Get user by username
+apiRouter.get('/user', verifyAuth, async (req, res) => {
+  res.send({ username});
 });
 
 // Default error handler
@@ -104,36 +106,34 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
+async function createUser(username, password) {
+  const passwordHash = await bcrypt.hash(password, 10);
 
-async function createUser(email, password) {
-    const passwordHash = await bcrypt.hash(password, 10);
-  
-    const user = {
-      email: email,
-      password: passwordHash,
-      token: uuid.v4(),
-    };
-    users.push(user);
-  
-    return user;
-  }
-  
-  async function findUser(field, value) {
-    if (!value) return null;
-  
-    return users.find((u) => u[field] === value);
-  }
-  
-  // setAuthCookie in the HTTP response
-  function setAuthCookie(res, authToken) {
-    res.cookie(authCookieName, authToken, {
-      secure: true,
-      httpOnly: true,
-      sameSite: 'strict',
-    });
-  }
-  
-  app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
+  const user = {
+    username: username,
+    password: passwordHash,
+    token: uuid.v4(),
+  };
+  users.push(user);
+
+  return user;
+}
+
+async function findUser(field, value) {
+  if (!value) return null;
+
+  return users.find((u) => u[field] === value);
+}
+
+// setAuthCookie in the HTTP response
+function setAuthCookie(res, authToken) {
+  res.cookie(authCookieName, authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
   });
-  
+}
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
