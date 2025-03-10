@@ -5,12 +5,16 @@ import './projects.css';
 export function Projects() {
   const [projects, setProjects] = React.useState({});
 
+
+
   React.useEffect(() => {
-    const projectsText = localStorage.getItem('projects');
-    if (projectsText) {
-      setProjects(JSON.parse(projectsText));
-    }
+    fetch(`/api/projects`, {
+      method: 'get',
+    }).then((response) => response.json())
+    .then((projects) => {setProjects(projects);
+    });
   }, []);
+
 
   React.useEffect(() => {
     const interval = setInterval(() => {
