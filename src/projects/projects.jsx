@@ -5,27 +5,33 @@ import './projects.css';
 export function Projects() {
   const [projects, setProjects] = React.useState({});
 
-
-
   React.useEffect(() => {
-    fetch(`/api/projects`, {
-      method: 'get',
-    }).then((response) => response.json())
-    .then((projects) => {setProjects(projects);
-    });
+    getProjects();
   }, []);
 
+  async function getProjects() {
+    let projects = await fetch('/api/projects', {
+      method: 'GET',
+    }).then((response) => response.json());
+    setProjects(projects);
+  }
 
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      const projectsText = localStorage.getItem('projects');
-      if (projectsText) {
-        setProjects(JSON.parse(projectsText));
-      }
-    }, 1000); // Check for updates every second
+  // React.useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     fetch(`/api/projects`, {
+  //       method: 'GET',
+  //     })
+  //       .then((response) => response.json())
+  //       .then((projects) => {
+  //         setProjects(projects);
+  //       })
+  //       .catch((error) => {
+  //         console.error('Error fetching projects:', error);
+  //       });
+  //   }, 3000); // Check for updates every 3 seconds
 
-    return () => clearInterval(interval); // Cleanup interval on component unmount
-  }, []);
+  //   return () => clearInterval(interval); // Cleanup interval on component unmount
+  // }, []);
 
   const projectRows = [];
   if (Object.keys(projects).length) {
@@ -35,7 +41,7 @@ export function Projects() {
         projectRows.push(
           <tr key={i}>
             <td>{i + 1}</td>
-            <td>{username}</td>
+            <td>{project.username}</td>
             <td>{project.count}</td>
             <td>{project.lastCompleted}</td>
           </tr>

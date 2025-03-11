@@ -8,7 +8,6 @@ const authCookieName = 'token';
 
 // The scores and users are saved in memory and disappear whenever the service is restarted.
 let users = [];
-let username = '';
 let projects = [];
 let log = ["Everyone is studying hard!"];
 
@@ -32,7 +31,6 @@ apiRouter.post('/auth/create', async (req, res) => {
     res.status(409).send({ msg: 'Existing user' });
   } else {
     const user = await createUser(req.body.username, req.body.password);
-    username = req.body.username;
     setAuthCookie(res, user.token);
     res.send({ user: user.username });
   }
@@ -45,7 +43,6 @@ apiRouter.post('/auth/login', async (req, res) => {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuid.v4();
       setAuthCookie(res, user.token);
-      username = req.body.username;
       res.send({ user: user.username });
       return;
     }
@@ -78,7 +75,7 @@ apiRouter.get('/projects', verifyAuth, (_req, res) => {
 });
 
 apiRouter.post('/projects', verifyAuth, (req, res) => {
-  projects = updateProjects(req.body);
+  projects = req.body;
   res.send(projects);
 });
 
@@ -93,7 +90,8 @@ apiRouter.post('/log', verifyAuth, (req, res) => {
 
 // Get user by username
 apiRouter.get('/user', verifyAuth, async (req, res) => {
-  res.send({ username});
+  const user = await findUser('token', req.cookies[authCookieName]);
+  res.send({ username: user.username });
 });
 
 // Default error handler

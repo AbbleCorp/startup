@@ -70,12 +70,13 @@ export function Studyroom({ onAuthChange }) {
     }).then((response) => response.json());
 
     const currentDate = new Date().toISOString().split('T')[0];
-    if (projects[username]) {
-      projects[username].count += 1; // Increment the project count for the user
+    let entry = projects.find(element => element.username === username);
+    if (entry) {
+      entry.count += 1;
+      entry.lastCompleted = currentDate; // Increment the project count for the user
     } else {
-      projects[username] = { count: 1, lastCompleted: currentDate }; // Initialize the project count and timestamp for the user
+      projects.push({username, count: 1, lastCompleted: currentDate }); // Initialize the project count and timestamp for the user
     }
-    projects[username].lastCompleted = currentDate; // Update the last completed timestamp
 
     await fetch('/api/projects', {
       method: 'POST',
