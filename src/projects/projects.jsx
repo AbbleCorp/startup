@@ -16,22 +16,22 @@ export function Projects() {
     setProjects(projects);
   }
 
-  // React.useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     fetch(`/api/projects`, {
-  //       method: 'GET',
-  //     })
-  //       .then((response) => response.json())
-  //       .then((projects) => {
-  //         setProjects(projects);
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error fetching projects:', error);
-  //       });
-  //   }, 3000); // Check for updates every 3 seconds
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      fetch(`/api/projects`, {
+        method: 'GET',
+      })
+        .then((response) => response.json())
+        .then((projects) => {
+          setProjects(projects);
+        })
+        .catch((error) => {
+          console.error('Error fetching projects:', error);
+        });
+    }, 3000); // Check for updates every 3 seconds
 
-  //   return () => clearInterval(interval); // Cleanup interval on component unmount
-  // }, []);
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, []);
 
   const projectRows = [];
   if (Object.keys(projects).length) {

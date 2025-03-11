@@ -57,6 +57,9 @@ export function Studyroom({ onAuthChange }) {
     const endLog = `${username} is done studying!`;
     updateSessionLog(endLog);
     onAuthChange('', AuthState.Unauthenticated);
+    fetch('/api/auth/logout', {
+      method: 'DELETE',
+    });
     navigate('/login');
   };
 
@@ -92,7 +95,7 @@ export function Studyroom({ onAuthChange }) {
 
   return (
     <main>
-      {/* <Simulator updateSessionLog={updateSessionLog} /> */}
+      <Simulator updateSessionLog={updateSessionLog} />
       <div className="fact-box">
         <p className="fact">{fact}</p>
         <p className="welcome">Welcome to StudyBud! Mark projects off, or send others encouragement with the buttons below!</p>
