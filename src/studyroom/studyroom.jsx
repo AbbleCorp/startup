@@ -29,9 +29,9 @@ export function Studyroom({ onAuthChange }) {
   }, []);
 
   React.useEffect(() => {
-    let userName = fetch('/user').then((response) => response.json());
+    let userName = localStorage.getItem('username');
     setUsername(userName);
-  }, []);
+    }, []);
 
   React.useEffect(() => {
     fetch('https://uselessfacts.jsph.pl/api/v2/facts/random')
@@ -56,7 +56,6 @@ export function Studyroom({ onAuthChange }) {
   const handleEndSession = () => {
     const endLog = `${username} is done studying!`;
     updateSessionLog(endLog);
-    setLog(['Everyone is studying hard!']);
     onAuthChange('', AuthState.Unauthenticated);
     navigate('/login');
   };
