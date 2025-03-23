@@ -8,11 +8,9 @@ const DB = require('./database.js');
 const authCookieName = 'token';
 
 // The scores and users are saved in memory and disappear whenever the service is restarted.
-let users = [];
-let projects = [];
-let log = ["Everyone is studying hard!"];
 
-const port = process.argv.length > 2 ? process.argv[2] : 4000;
+
+const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 app.use(express.static('public'));
 
