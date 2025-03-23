@@ -35,9 +35,7 @@ export function Projects() {
 
   const projectRows = [];
   if (Object.keys(projects).length) {
-    Object.entries(projects)
-      .sort(([, a], [, b]) => b.count - a.count) // Sort by project count in descending order
-      .forEach(([username, project], i) => {
+    Object.entries(projects).forEach(([username, project], i) => {
         projectRows.push(
           <tr key={i}>
             <td>{i + 1}</td>
@@ -58,7 +56,7 @@ export function Projects() {
   return (
     <main>
       <h3>Project Completion Tracker</h3>
-      <p>Keep track of how many projects you've completed!</p>
+      <p>Keep track of how many projects have been completed while studying together!</p>
       <table className="table table-striped table-responsive">
         <thead>
           <tr>

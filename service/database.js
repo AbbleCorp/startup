@@ -6,6 +6,7 @@ const client = new MongoClient(url);
 const db = client.db('studyBud');
 const userCollection = db.collection('user');
 const scoreCollection = db.collection('projects');
+const logCollection = db.collection('log');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -18,8 +19,8 @@ const scoreCollection = db.collection('projects');
   }
 })();
 
-function getUser(email) {
-  return userCollection.findOne({ email: email });
+function getUser(username) {
+  return userCollection.findOne({ username });
 }
 
 function getUserByToken(token) {
@@ -31,20 +32,19 @@ async function addUser(user) {
 }
 
 async function updateUser(user) {
-  await userCollection.updateOne({ email: user.email }, { $set: user });
+  await userCollection.updateOne({ username: user.username }, { $set: user });
 }
 
-async function addScore(score) {
-  return scoreCollection.insertOne(score);
+async function updateProject(projectUpdate) {
+  await projectCollection.updateOne({ username: projectUpdate.username }, { $set: projectUpdate });
 }
 
-function getHighScores() {
-  const query = { score: { $gt: 0, $lt: 900 } };
+function getProjects() {
+  const query = {};
   const options = {
-    sort: { score: -1 },
-    limit: 10,
+    sort: { lastCompleted: -1 }, // Sort by lastCompleted in descending order
   };
-  const cursor = scoreCollection.find(query, options);
+  const cursor = projectCollection.find(query, options);
   return cursor.toArray();
 }
 
@@ -53,6 +53,6 @@ module.exports = {
   getUserByToken,
   addUser,
   updateUser,
-  addScore,
-  getHighScores,
+  updateProject,
+  getProjects,
 };
