@@ -39,6 +39,26 @@ async function updateProject(projectUpdate) {
   await projectCollection.updateOne({ username: projectUpdate.username }, { $set: projectUpdate });
 }
 
+async function updateLog(logUpdate) {
+  const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+  const logEntry = await logCollection.findOne({ date: today });
+
+  if (logEntry) {
+    // If an entry exists for today's date, update it by adding the new log item
+    await logCollection.updateOne(
+      { date: today },
+      { $push: { logs: logUpdate } }
+    );
+  } else {
+    // If no entry exists for today's date, create a new log entry
+    const newLogEntry = {
+      date: today,
+      logs: [logUpdate],
+    };
+    await logCollection.insertOne(newLogEntry);
+  }
+}
+
 function getProjects() {
   const query = {};
   const options = {
@@ -48,6 +68,10 @@ function getProjects() {
   return cursor.toArray();
 }
 
+function getLog() {
+  return logCollection.find({}).toArray();
+}
+
 module.exports = {
   getUser,
   getUserByToken,
@@ -55,4 +79,6 @@ module.exports = {
   updateUser,
   updateProject,
   getProjects,
+  updateLog,
+  getLog
 };
