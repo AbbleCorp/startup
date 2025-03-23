@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
 const app = express();
+const DB = require('./database.js');
 
 const authCookieName = 'token';
 
@@ -42,6 +43,7 @@ apiRouter.post('/auth/login', async (req, res) => {
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuid.v4();
+      await DB.updateUser(user);
       setAuthCookie(res, user.token);
       res.send({ user: user.username });
       return;
@@ -55,6 +57,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   if (user) {
     delete user.token;
+    DB.updateUser(user);
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
@@ -70,21 +73,25 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
-apiRouter.get('/projects', verifyAuth, (_req, res) => {
+apiRouter.get('/projects', verifyAuth, async (_req, res) => {
+  const projects = await DB.getProjects();
   res.send(projects);
 });
 
 apiRouter.post('/projects', verifyAuth, (req, res) => {
-  projects = req.body;
+  const projects = updateProjects(req.body);
   res.send(projects);
 });
 
-apiRouter.get('/log', verifyAuth, (_req, res) => {
+
+
+apiRouter.get('/log', verifyAuth, async (_req, res) => {
+  const log = await DB.getLog();
   res.send(log);
 });
 
 apiRouter.post('/log', verifyAuth, (req, res) => {
-  log = req.body;
+  const log = updateLog(req.body);
   res.send(log);
 });
 
@@ -104,6 +111,12 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
+
+async function updateProjects(projectUpdate) {
+  await DB.updateProject(projectUpdate);
+  return DB.getProjects();
+}
+
 async function createUser(username, password) {
   const passwordHash = await bcrypt.hash(password, 10);
 
@@ -112,7 +125,7 @@ async function createUser(username, password) {
     password: passwordHash,
     token: uuid.v4(),
   };
-  users.push(user);
+  await DB.addUser(user);
 
   return user;
 }
@@ -120,7 +133,10 @@ async function createUser(username, password) {
 async function findUser(field, value) {
   if (!value) return null;
 
-  return users.find((u) => u[field] === value);
+  if (field === 'token') {
+    return DB.getUserByToken(value);
+  }
+  return DB.getUser(value);
 }
 
 // setAuthCookie in the HTTP response

@@ -1,2 +1,4 @@
 deployFiles.sh
 node_modules/
+
+dbConfig.json
