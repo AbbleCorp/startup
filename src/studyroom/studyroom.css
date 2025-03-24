@@ -1,4 +1,4 @@
-.fact-box, .fact, .welcome, .display-box, .display-text {
+.fact-box, .fact, .welcome, .display-box, .display-text, .log {
     background-color: rgb(207, 230, 194);
 }
 
@@ -29,6 +29,7 @@
     padding: 10px; /* Optional: Add padding for better spacing */
     margin: 0 auto; /* Center the display box */
 }
+
 
   .btn-group .btn {
     margin: 0px;

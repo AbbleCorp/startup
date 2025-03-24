@@ -42,13 +42,14 @@ export function Studyroom({ onAuthChange }) {
   }, []);
 
   const updateSessionLog = async (logUpdate) => {
-    await fetch('/api/log', {
+    const log = await fetch('/api/log', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
       body: JSON.stringify({log: logUpdate}),
     });
+    setLog(log.logs);
   };
 
   const handleEndSession = () => {
@@ -92,7 +93,7 @@ export function Studyroom({ onAuthChange }) {
       <hr />
       <div className="display-box">
         {log.map((entry, index) => (
-          <p key={index} className="display-text">{entry.logs.map((log) => (<p className="log">{log}</p>))}</p>
+          <p key={index} className="display-text">{entry}</p>
         ))}
       </div>
       <br />

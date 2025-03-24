@@ -88,8 +88,9 @@ apiRouter.get('/log', verifyAuth, async (_req, res) => {
   res.send(log);
 });
 
-apiRouter.post('/log', verifyAuth, (req, res) => {
-  const log = updateLog(req.body);
+apiRouter.post('/log', verifyAuth, async (req, res) => {
+  await DB.updateLog(req.body.log);
+  const log = await DB.getLog();
   res.send(log);
 });
 
@@ -114,6 +115,7 @@ async function updateProjects(projectUpdate) {
   await DB.updateProject(projectUpdate);
   return DB.getProjects();
 }
+
 
 async function createUser(username, password) {
   const passwordHash = await bcrypt.hash(password, 10);

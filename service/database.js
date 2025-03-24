@@ -5,14 +5,14 @@ const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostna
 const client = new MongoClient(url);
 const db = client.db('studyBud');
 const userCollection = db.collection('user');
-const scoreCollection = db.collection('projects');
+const projectCollection = db.collection('projects'); // Corrected collection name
 const logCollection = db.collection('log');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
   try {
     await db.command({ ping: 1 });
-    console.log(`Connect to database`);
+    console.log(`Connected to database`);
   } catch (ex) {
     console.log(`Unable to connect to database with ${url} because ${ex.message}`);
     process.exit(1);
@@ -36,7 +36,14 @@ async function updateUser(user) {
 }
 
 async function updateProject(projectUpdate) {
-  await projectCollection.updateOne({ username: projectUpdate.username }, { $set: projectUpdate });
+  await projectCollection.updateOne(
+    { username: projectUpdate.username },
+    {
+      $inc: { count: 1 }, // Increment the count attribute
+      $set: { lastCompleted: projectUpdate.lastCompleted } // Update the lastCompleted attribute
+    },
+    { upsert: true } // Ensure that the document is created if it does not exist
+  );
 }
 
 async function updateLog(logUpdate) {
@@ -59,7 +66,7 @@ async function updateLog(logUpdate) {
   }
 }
 
-function getProjects() {
+async function getProjects() {
   const query = {};
   const options = {
     sort: { lastCompleted: -1 }, // Sort by lastCompleted in descending order
