@@ -3,35 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import './studyroom.css';
 import { AuthState } from '../login/authState';
 import { Simulator } from './eventHandler';
+import {StudyEvent, Notifier} from './Notifier';
 
 export function Studyroom({ onAuthChange }) {
   const [log, setLog] = React.useState([]);
-  const [username, setUsername] = React.useState('');
+  const [username, setUsername] = React.useState(localStorage.getItem('username'));
   const [fact, setFact] = React.useState('Let\'s get started! Did you know?\n');
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    fetch('/api/log')
-      .then((response) => response.json())
-      .then((fetchedLog) => {
-        if (fetchedLog.length === 0) {
-          const initialLog = ['Everyone is studying hard!'];
-          setLog(initialLog);
-        } else {
-          setLog(fetchedLog);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching log:', error);
-        const initialLog = ['Everyone is studying hard!'];
-        setLog(initialLog);
-      });
-  }, []);
 
-  React.useEffect(() => {
-    let userName = localStorage.getItem('username');
-    setUsername(userName);
-    }, []);
+
+    React.useEffect(() => {
+    const userName = localStorage.getItem('username');
+    if (!userName) {
+      navigate('/login'); // Redirect to login page if not authenticated
+    } else {
+      setUsername(userName);
+    }
+  }, [navigate]);
 
   React.useEffect(() => {
     fetch('https://uselessfacts.jsph.pl/api/v2/facts/random')
@@ -40,6 +29,17 @@ export function Studyroom({ onAuthChange }) {
         setFact(fact + randFact.text);
       });
   }, []);
+
+  React.useEffect(() => {
+    Notifier.addHandler(handleEvent);
+    return () => {
+      Notifier.removeHandler(handleEvent);
+    };
+  });
+
+  function handleEvent(event) {
+    setLog([...log, event]);
+  }
 
   const updateSessionLog = async (logUpdate) => {
     await fetch('/api/log', {
@@ -51,18 +51,42 @@ export function Studyroom({ onAuthChange }) {
     });
   };
 
+  function createLogArray() {
+    const logArray = [];
+    for (const [i, event] of log.entries()) {
+      let message = 'null';
+      if (event.type === StudyEvent.Encouragement) {
+        message = `${username} sent encouragement!`;
+      } else if (event.type === StudyEvent.CompleteProject) {
+        message = `${username} completed a project!`;
+      } else if (event.type === StudyEvent.EndSession) {
+        message = `${username} ended their study session!`;
+      } else if (event.type === StudyEvent.userJoin) {
+        message = `${username} joined the study session!`;
+      }
+
+      logArray.push(
+        <div key={i} className='log-event'>
+          <span className={'study-event'}>{event.from.split('@')[0]}</span>
+        </div>
+      );
+    }
+    return logArray;
+  }
+
   const handleEndSession = () => {
     const endLog = `${username} is done studying!`;
-    updateSessionLog(endLog);
+    Notifier.broadcastEvent(username, StudyEvent.End, {});
     onAuthChange('', AuthState.Unauthenticated);
     fetch('/api/auth/logout', {
       method: 'DELETE',
     });
+    localStorage.removeItem('username');
     navigate('/login');
   };
 
   const handleEncouragement = () => {
-    updateSessionLog(`${username} is sending encouragement!`);
+    Notifier.broadcastEvent(username, StudyEvent.Encouragement, {});
   };
 
   const updateProjects = async () => {
@@ -77,7 +101,7 @@ export function Studyroom({ onAuthChange }) {
       },
       body: JSON.stringify(projectUpdate),
     });
-    updateSessionLog(`${username} has completed a project!`);
+    Notifier.broadcastEvent(username, StudyEvent.Project, {});
   };
 
 
@@ -91,9 +115,7 @@ export function Studyroom({ onAuthChange }) {
       </div>
       <hr />
       <div className="display-box">
-        {/* {log.map((entry, index) => (
-          <p key={index} className="display-text">{entry.logs.map((log) => (<p className="log">{log}</p>))}</p>
-        ))} */ <p>put websocket log here</p>}
+        <div id = 'log-box'>{createLogArray()}</div>
       </div>
       <br />
       <div className="btn-group">

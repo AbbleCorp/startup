@@ -59,5 +59,5 @@ class EventNotifier {
          }
 }
 
-const Notifier = new Notifier();
+const Notifier = new EventNotifier();
 export {StudyEvent, Notifier};
