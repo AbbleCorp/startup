@@ -91,9 +91,9 @@ export function Studyroom({ onAuthChange }) {
       </div>
       <hr />
       <div className="display-box">
-        {log.map((entry, index) => (
+        {/* {log.map((entry, index) => (
           <p key={index} className="display-text">{entry.logs.map((log) => (<p className="log">{log}</p>))}</p>
-        ))}
+        ))} */ <p>put websocket log here</p>}
       </div>
       <br />
       <div className="btn-group">
