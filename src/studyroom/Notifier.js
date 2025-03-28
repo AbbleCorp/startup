@@ -20,6 +20,11 @@ class EventNotifier {
 
     constructor() {
         let port = window.location.port;
+        if (window.location.port == 5173) {
+            // This is a workaround for the development server (Vite) which uses port 5173
+            // and does not support WebSocket connections on that port.
+            port = 3000; // Change to your backend server port
+        }
         const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
         this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
         this.socket.onopen = (event) => {

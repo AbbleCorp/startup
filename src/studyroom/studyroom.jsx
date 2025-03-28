@@ -12,6 +12,13 @@ export function Studyroom({ onAuthChange }) {
   const navigate = useNavigate();
 
 
+  React.useEffect(() => {
+    Notifier.addHandler(handleEvent);
+    return () => {
+      Notifier.removeHandler(handleEvent);
+    };
+  });
+
 
     React.useEffect(() => {
     const userName = localStorage.getItem('username');
@@ -19,6 +26,7 @@ export function Studyroom({ onAuthChange }) {
       navigate('/login'); // Redirect to login page if not authenticated
     } else {
       setUsername(userName);
+      Notifier.broadcastEvent(userName, StudyEvent.Join, {}); // Notify others that the user has joined
     }
   }, [navigate]);
 
@@ -29,13 +37,6 @@ export function Studyroom({ onAuthChange }) {
         setFact(fact + randFact.text);
       });
   }, []);
-
-  React.useEffect(() => {
-    Notifier.addHandler(handleEvent);
-    return () => {
-      Notifier.removeHandler(handleEvent);
-    };
-  });
 
   function handleEvent(event) {
     setLog([...log, event]);
@@ -55,20 +56,18 @@ export function Studyroom({ onAuthChange }) {
     const logArray = [];
     for (const [i, event] of log.entries()) {
       let message = 'null';
-      if (event.type === StudyEvent.Encouragement) {
-        message = `${username} sent encouragement!`;
-      } else if (event.type === StudyEvent.CompleteProject) {
-        message = `${username} completed a project!`;
-      } else if (event.type === StudyEvent.EndSession) {
-        message = `${username} ended their study session!`;
-      } else if (event.type === StudyEvent.userJoin) {
-        message = `${username} joined the study session!`;
+      if (event.type === 'encouragement') {
+        message = `${event.from} sent encouragement!`;
+      } else if (event.type === 'projectComplete') {
+        message = `${event.from} completed a project!`;
+      } else if (event.type === 'endSession') {
+        message = `${event.from} ended their study session!`;
+      } else if (event.type === 'userJoin') {
+        message = `${event.from} joined the study session!`;
       }
 
       logArray.push(
-        <div key={i} className='log-event'>
-          <span className={'study-event'}>{event.from.split('@')[0]}</span>
-        </div>
+        <p className = 'log-item' key={i} >{message}</p>
       );
     }
     return logArray;
@@ -115,7 +114,7 @@ export function Studyroom({ onAuthChange }) {
       </div>
       <hr />
       <div className="display-box">
-        <div id = 'log-box'>{createLogArray()}</div>
+        <div className = 'log-box'>{createLogArray()}</div>
       </div>
       <br />
       <div className="btn-group">
